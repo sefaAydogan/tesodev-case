@@ -116,12 +116,16 @@ function DetailedResultComponent({
 							</Dropdown>
 						</Col>
 						<Col md={10}>
-							{filteredData !== null && (
+							{filteredData !== null && filteredData.length >= 1 ? (
 								<div className="searchResultContainer">
 									{currentPosts &&
 										currentPosts.map((data, idx) => (
 											<FilteredDataItem key={data.id} data={data} />
 										))}
+								</div>
+							) : (
+								<div className="noResultScreen">
+									<h1>No result is found</h1>
 								</div>
 							)}
 						</Col>

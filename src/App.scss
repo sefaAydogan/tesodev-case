@@ -81,6 +81,18 @@
 			}
 		}
 	}
+	.noResultScreen {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+		h1 {
+			font-size: 24px;
+			font-weight: 700;
+			color: rgb(143, 38, 38);
+		}
+	}
 }
 .paginationItemStyle {
 	margin-left: 1rem;
