@@ -1,16 +1,21 @@
 import React from "react";
 import { Col, Container, Image, Row } from "react-bootstrap";
-import FilteredDataItem from "../FilteredDataItem";
-import SearchComponent from "../SearchComponent";
-import logo from "../tesodevLogo.svg";
+import FilteredDataItem from "./FilteredDataItem";
+import SearchComponent from "./SearchComponent";
+import logo from "./tesodevLogo.svg";
 
-function HomePageComponent({ filteredData, setFilteredData, setPageMode }) {
+function HomePageComponent({
+	filteredData,
+	setFilteredData,
+	setPageMode,
+	setSearchContent,
+}) {
 	return (
 		<Container>
 			<div className="HomePageContainer">
 				<Row>
 					<Col
-						md={12}
+						md={10}
 						style={{
 							display: "flex",
 							justifyContent: "center",
@@ -25,12 +30,15 @@ function HomePageComponent({ filteredData, setFilteredData, setPageMode }) {
 						/>
 					</Col>
 					<Col md={12}>
-						<SearchComponent setFilteredData={setFilteredData} />
+						<SearchComponent
+							setSearchContent={setSearchContent}
+							setFilteredData={setFilteredData}
+						/>
 					</Col>
 				</Row>
 				<Row>
 					<Col md={10}>
-						{filteredData !== null && (
+						{filteredData !== null && filteredData.length >= 1 && (
 							<div className="searchResultContainer">
 								{filteredData.map((data, idx) =>
 									idx < 3 ? (

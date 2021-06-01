@@ -3,38 +3,50 @@ import { Pagination } from "react-bootstrap";
 
 function PaginatationComponent({
 	setCurrentPage,
-	postsPerPage,
-	totalPosts,
+	itemsPerPage,
+	totalFoundings,
 	currentPage,
 }) {
 	const pageNumbers = [];
-	for (let index = 1; index <= Math.ceil(totalPosts / postsPerPage); index++) {
+	for (
+		let index = 1;
+		index <= Math.ceil(totalFoundings / itemsPerPage);
+		index++
+	) {
 		pageNumbers.push(index);
 	}
+
 	return (
-		<Pagination style={{ marginTop: "1rem" }}>
+		<Pagination style={{ marginTop: "1rem", marginBottom: "3rem" }}>
 			<Pagination.First
-				className="pageItem"
+				className="paginationItemStyle"
 				onClick={() => setCurrentPage(1)}
 			/>
 			<Pagination.Prev
-				style={{ marginLeft: "1rem" }}
+				className="paginationItemStyle"
 				onClick={() => setCurrentPage((prev) => (prev === 1 ? prev : prev - 1))}
 			/>
-			{pageNumbers.map((page) => (
-				<Pagination.Item
-					key={page}
-					active={currentPage === page}
-					style={{
-						marginLeft: "1rem",
-					}}
-					onClick={() => setCurrentPage(page)}
-				>
-					{page}
-				</Pagination.Item>
-			))}
+			{pageNumbers.map((page) =>
+				page === 1 ||
+				page === currentPage ||
+				page === currentPage + 1 ||
+				page === currentPage - 1 ||
+				page === pageNumbers.length ||
+				page === pageNumbers.length - 1 ? (
+					<Pagination.Item
+						key={page}
+						active={currentPage === page}
+						className="paginationItemStyle"
+						onClick={() => setCurrentPage(page)}
+					>
+						{page}
+					</Pagination.Item>
+				) : page === currentPage - 2 || page === currentPage + 2 ? (
+					<Pagination.Ellipsis className="paginationItemStyle" key={page} />
+				) : null
+			)}
 			<Pagination.Next
-				style={{ marginLeft: "1rem" }}
+				className="paginationItemStyle"
 				onClick={() =>
 					setCurrentPage((prev) =>
 						prev === pageNumbers.length ? prev : prev + 1
@@ -42,8 +54,8 @@ function PaginatationComponent({
 				}
 			/>
 			<Pagination.Last
+				className="paginationItemStyle"
 				onClick={() => setCurrentPage(pageNumbers.length)}
-				style={{ marginLeft: "1rem" }}
 			/>
 		</Pagination>
 	);

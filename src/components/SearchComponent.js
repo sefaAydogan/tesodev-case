@@ -5,9 +5,8 @@ import FormikControl from "./FormComponents/FormikControl";
 import { Button } from "@chakra-ui/react";
 import { Col, Row } from "react-bootstrap";
 import generated from "../generated.json";
-function SearchComponent({ setFilteredData }) {
+function SearchComponent({ setFilteredData, searchContent, setSearchContent }) {
 	const [db, setDb] = useState(generated);
-
 	useEffect(() => {
 		setDb(generated);
 	}, []);
@@ -19,13 +18,16 @@ function SearchComponent({ setFilteredData }) {
 					item.title.includes(values.searchText)
 			)
 		);
+		setSearchContent(values.searchText);
 	};
 
 	const initialValues = {
-		searchText: "",
+		searchText: searchContent !== null ? searchContent : "",
 	};
 	const validationSchema = Yup.object({
-		searchText: Yup.string().required("Required"),
+		searchText: Yup.string()
+			.matches(/^[a-zA-Z\s]+$/, "Only alphabets are allowed for this field ")
+			.required("Required"),
 	});
 	return (
 		<Formik
@@ -40,7 +42,6 @@ function SearchComponent({ setFilteredData }) {
 							style={{
 								display: "flex",
 								justifyContent: "center",
-								alignItems: "center",
 							}}
 						>
 							<Col md={10}>

@@ -15,7 +15,7 @@
 		border: 1px solid #484848;
 		box-sizing: border-box;
 		border-radius: 4px;
-		padding: 1rem;
+		padding: 1.8rem 3.5rem 1rem 3rem;
 		.resultItem {
 			margin-bottom: 1rem;
 		}
@@ -23,6 +23,7 @@
 			font-weight: bold;
 			font-size: 18px;
 			line-height: 21px;
+			color: #484848;
 		}
 		span {
 			font-weight: bold;
@@ -35,10 +36,9 @@
 			justify-content: center;
 			align-items: center;
 			margin-top: 2rem;
-			a {
+			button {
 				text-align: center;
-
-				font-weight: bold;
+				font-weight: 600;
 				font-size: 12px;
 				line-height: 14px;
 			}
@@ -78,6 +78,22 @@
 				font-weight: bold;
 				font-size: 12px;
 				line-height: 14px;
+			}
+		}
+	}
+}
+.paginationItemStyle {
+	margin-left: 1rem;
+	.page-link {
+		box-sizing: border-box;
+		border-radius: 4px;
+		color: #000000;
+	}
+	&.page-item {
+		&.active {
+			span {
+				background-color: #204080;
+				border-color: #204080;
 			}
 		}
 	}

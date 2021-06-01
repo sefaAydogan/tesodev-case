@@ -8,7 +8,7 @@ function FilteredDataItem({ data }) {
 			<span>
 				{data.name} - {date[0]}
 			</span>
-			<hr />
+			<hr style={{ height: "1px", backgroundColor: "#585858" }} />
 		</div>
 	);
 }

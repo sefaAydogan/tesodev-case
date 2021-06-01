@@ -6,23 +6,27 @@ import SearchComponent from "./SearchComponent";
 import logo from "./tesodevLogo.svg";
 import { BiSort } from "react-icons/bi";
 
-function DetailedResultComponent({ filteredData, setFilteredData }) {
+function DetailedResultComponent({
+	filteredData,
+	setFilteredData,
+	searchContent,
+}) {
 	const [currentPage, setCurrentPage] = useState(1);
-	const postsPerPage = 10;
-	const indexOfLastPost = currentPage * postsPerPage;
-	const indexOfFirstPost = indexOfLastPost - postsPerPage;
+	const itemsPerPage = 10;
+	const indexOfLastPost = currentPage * itemsPerPage;
+	const indexOfFirstPost = indexOfLastPost - itemsPerPage;
 	const [currentPosts, setCurrentPosts] = useState(
 		filteredData.slice(indexOfFirstPost, indexOfLastPost)
 	);
 	useEffect(() => {
 		setCurrentPosts(filteredData.slice(indexOfFirstPost, indexOfLastPost));
+		// eslint-disable-next-line
 	}, [filteredData, currentPage]);
-	const orderByHandler = (specifier = "name", desc = false) => {
-		console.log(specifier, desc);
+	const orderByHandler = (specifier, desc = false) => {
 		if (specifier === "name") {
 			setFilteredData((prev) =>
 				prev.sort((a, b) => {
-					return a.name < b.name ? -1 : 1;
+					return a.name <= b.name ? -1 : 1;
 				})
 			);
 		}
@@ -31,7 +35,7 @@ function DetailedResultComponent({ filteredData, setFilteredData }) {
 			filteredData.sort((a, b) => {
 				let aDate = a.createdAt.split("-");
 				let bDate = b.createdAt.split("-");
-				return aDate[0] < bDate[0] ? -1 : 1;
+				return aDate[0] <= bDate[0] ? -1 : 1;
 			});
 		}
 		if (desc) setFilteredData((prev) => prev.reverse());
@@ -56,8 +60,12 @@ function DetailedResultComponent({ filteredData, setFilteredData }) {
 				>
 					<Image src={logo} style={{ width: "149px", height: "63px" }} alt="" />
 				</Col>
+
 				<Col md={10}>
-					<SearchComponent setFilteredData={setFilteredData} />
+					<SearchComponent
+						searchContent={searchContent}
+						setFilteredData={setFilteredData}
+					/>
 				</Col>
 			</Row>
 			<Row>
@@ -92,13 +100,13 @@ function DetailedResultComponent({ filteredData, setFilteredData }) {
 								</Dropdown.Toggle>
 
 								<Dropdown.Menu>
-									<Dropdown.Item onClick={() => orderByHandler("name")}>
+									<Dropdown.Item onClick={() => orderByHandler("name", false)}>
 										Name ascending
 									</Dropdown.Item>
 									<Dropdown.Item onClick={() => orderByHandler("name", true)}>
 										Name descending
 									</Dropdown.Item>
-									<Dropdown.Item onClick={() => orderByHandler("year")}>
+									<Dropdown.Item onClick={() => orderByHandler("year", false)}>
 										Year ascending
 									</Dropdown.Item>
 									<Dropdown.Item onClick={() => orderByHandler("year", true)}>
@@ -126,8 +134,8 @@ function DetailedResultComponent({ filteredData, setFilteredData }) {
 							}}
 						>
 							<PaginatationComponent
-								postsPerPage={postsPerPage}
-								totalPosts={filteredData.length}
+								itemsPerPage={itemsPerPage}
+								totalFoundings={filteredData.length}
 								setCurrentPage={setCurrentPage}
 								currentPage={currentPage}
 							/>
